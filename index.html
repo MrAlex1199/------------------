@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>อินโฟกราฟิก: ระบบการผลิตแบบโตโยต้า</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Kanit', sans-serif;
+            background-color: #1A202C; 
+            color: #E2E8F0;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .flowchart-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            flex: 1;
+            min-width: 120px;
+        }
+        .flowchart-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: #06D6A0; 
+            margin: 0 0.5rem;
+            transform: translateY(-20px);
+        }
+        .kpi-card {
+            background-color: #2D3748;
+            color: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .video-link {
+            font-size: 1.5rem;
+            color: #FFD166; /* Yellow accent for video icon */
+            margin-left: 0.5rem;
+            vertical-align: middle;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body class="bg-[#1A202C] text-[#E2E8F0]">
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-[#06D6A0] mb-2">วิถีแห่งโตโยต้า (The Toyota Way)</h1>
+            <p class="text-lg md:text-xl text-[#FFD166]">วิศวกรรมสู่ความเป็นผู้นำระดับโลก ผ่านระบบการผลิตที่เป็นเลิศ</p>
+        </header>
+
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8 text-[#06D6A0]">
+                กลไกขับเคลื่อนการผลิต (Input-Process-Output)
+                <a href="https://www.youtube.com/watch?v=9hD24pOXsAo" target="_blank" class="video-link" title="ชมวิดีโอ: กระบวนการผลิตรถยนต์โตโยต้า">▶️</a>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="bg-[#2D3748] rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-bold mb-4 text-center text-[#FFD166]">ปัจจัยนำเข้า (Inputs)</h3>
+                    <p class="text-center mb-4 text-[#E2E8F0]">การผลิตรถยนต์หนึ่งคันต้องอาศัยปัจจัยนำเข้าที่หลากหลาย โดยมีวัตถุดิบและชิ้นส่วนเป็นองค์ประกอบหลัก</p>
+                    <div class="chart-container">
+                        <canvas id="inputChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-[#2D3748] rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-bold mb-4 text-center text-[#FFD166]">กระบวนการ (Process)</h3>
+                    <p class="text-center mb-4 text-[#E2E8F0]">กระบวนการผลิตมีความซับซ้อนแตกต่างกันไปในแต่ละขั้นตอน โดยการประกอบขั้นสุดท้ายถือเป็นหัวใจสำคัญ</p>
+                    <div class="chart-container">
+                        <canvas id="processChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-16 bg-[#2D3748] rounded-lg shadow-lg p-8">
+            <h2 class="text-3xl font-bold text-center mb-2 text-[#06D6A0]">
+                จากแผ่นเหล็กสู่ท้องถนน
+                <a href="https://www.youtube.com/watch?v=yuYw0kxkgx4" target="_blank" class="video-link" title="ชมวิดีโอ: สายการผลิตรถยนต์">▶️</a>
+            </h2>
+            <p class="text-lg text-center mb-10 text-[#E2E8F0]">5 ขั้นตอนหลักในสายการประกอบรถยนต์โตโยต้า</p>
+            <div class="flex flex-col md:flex-row justify-center items-start md:items-stretch">
+                <div class="flowchart-step mb-8 md:mb-0">
+                    <div class="w-20 h-20 bg-[#FFD166] text-[#1A202C] rounded-full flex items-center justify-center text-3xl font-bold">1</div>
+                    <h4 class="font-bold mt-3 text-[#E2E8F0]">ปั๊มขึ้นรูป</h4>
+                    <p class="text-sm text-[#B0BEC5]">ขึ้นรูปชิ้นส่วนตัวถัง</p>
+                </div>
+                <div class="flowchart-arrow hidden md:flex">→</div>
+                <div class="flowchart-step mb-8 md:mb-0">
+                    <div class="w-20 h-20 bg-[#FF6B6B] text-[#1A202C] rounded-full flex items-center justify-center text-3xl font-bold">2</div>
+                    <h4 class="font-bold mt-3 text-[#E2E8F0]">เชื่อมตัวถัง</h4>
+                    <p class="text-sm text-[#B0BEC5]">ประกอบโครงสร้าง</p>
+                </div>
+                <div class="flowchart-arrow hidden md:flex">→</div>
+                <div class="flowchart-step mb-8 md:mb-0">
+                    <div class="w-20 h-20 bg-[#06D6A0] text-[#1A202C] rounded-full flex items-center justify-center text-3xl font-bold">3</div>
+                    <h4 class="font-bold mt-3 text-[#E2E8F0]">พ่นสี</h4>
+                    <p class="text-sm text-[#B0BEC5]">เพื่อความสวยงามทนทาน</p>
+                </div>
+                <div class="flowchart-arrow hidden md:flex">→</div>
+                <div class="flowchart-step mb-8 md:mb-0">
+                    <div class="w-20 h-20 bg-[#118AB2] text-[#1A202C] rounded-full flex items-center justify-center text-3xl font-bold">4</div>
+                    <h4 class="font-bold mt-3 text-[#E2E8F0]">ประกอบ</h4>
+                    <p class="text-sm text-[#B0BEC5]">ติดตั้งทุกชิ้นส่วน</p>
+                </div>
+                <div class="flowchart-arrow hidden md:flex">→</div>
+                <div class="flowchart-step">
+                    <div class="w-20 h-20 bg-[#073B4C] text-[#1A202C] rounded-full flex items-center justify-center text-3xl font-bold">5</div>
+                    <h4 class="font-bold mt-3 text-[#E2E8F0]">ตรวจสอบ</h4>
+                    <p class="text-sm text-[#B0BEC5]">คุณภาพขั้นสุดท้าย</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-16 bg-[#2D3748] rounded-lg shadow-lg p-8">
+            <h2 class="text-3xl font-bold text-center mb-2 text-[#06D6A0]">
+                การพยากรณ์การขายและการผลิต
+                <a href="https://www.youtube.com/watch?v=6PPXpkLJsPI" target="_blank" class="video-link" title="ชมวิดีโอ: การวางแผนการผลิตในอุตสาหกรรมยานยนต์">▶️</a>
+            </h2>
+            <p class="text-lg text-center mb-10 text-[#E2E8F0]">การคาดการณ์ความต้องการของตลาดและวางแผนการผลิตเพื่อตอบสนองอย่างมีประสิทธิภาพ</p>
+            <div class="chart-container h-[350px] md:h-[450px]">
+                <canvas id="forecastChart"></canvas>
+            </div>
+            <p class="text-center mt-6 text-[#B0BEC5]">แผนภูมิแสดงแนวโน้มยอดขายจริงและการคาดการณ์ รวมถึงเป้าหมายการผลิตที่สอดคล้องกัน โดยพิจารณาจากปัจจัยทางเศรษฐกิจและตลาด</p>
+        </section>
+
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8 text-[#06D6A0]">
+                เสาหลักแห่งคุณภาพ: ระบบการผลิตแบบโตโยต้า (TPS)
+                <a href="https://www.youtube.com/watch?v=Ms87RAjNGzI" target="_blank" class="video-link" title="ชมวิดีโอ: หลักการของ TPS">▶️</a>
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-[#2D3748] rounded-lg shadow-lg p-6 text-center">
+                    <div class="text-5xl mb-3 text-[#FFD166]">⚙️</div>
+                    <h3 class="text-xl font-bold mb-2 text-[#118AB2]">Jidoka</h3>
+                    <p class="text-[#E2E8F0]">เครื่องจักรหยุดอัตโนมัติเมื่อพบข้อบกพร่อง เพื่อแก้ไขปัญหาที่ต้นเหตุ</p>
+                </div>
+                <div class="bg-[#2D3748] rounded-lg shadow-lg p-6 text-center">
+                    <div class="text-5xl mb-3 text-[#FF6B6B]">🛡️</div>
+                    <h3 class="text-xl font-bold mb-2 text-[#06D6A0]">Poka-Yoke</h3>
+                    <p class="text-[#E2E8F0]">การออกแบบเพื่อป้องกันความผิดพลาด ทำให้การทำงานถูกต้องเสมอ</p>
+                </div>
+                <div class="bg-[#2D3748] rounded-lg shadow-lg p-6 text-center">
+                    <div class="text-5xl mb-3 text-[#06D6A0]">💡</div>
+                    <h3 class="text-xl font-bold mb-2 text-[#FFD166]">Andon</h3>
+                    <p class="text-[#E2E8F0]">ระบบสัญญาณไฟแจ้งเตือนปัญหา ทำให้แก้ไขได้อย่างรวดเร็ว</p>
+                </div>
+                <div class="bg-[#2D3748] rounded-lg shadow-lg p-6 text-center">
+                    <div class="text-5xl mb-3 text-[#118AB2]">🚀</div>
+                    <h3 class="text-xl font-bold mb-2 text-[#FF6B6B]">Kaizen</h3>
+                    <p class="text-[#E2E8F0]">วัฒนธรรมการปรับปรุงอย่างต่อเนื่องจากพนักงานทุกคน</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+            <div class="bg-[#2D3748] rounded-lg shadow-lg p-6">
+                <h3 class="text-2xl font-bold mb-4 text-center text-[#06D6A0]">
+                    การบริหารสินค้าคงคลังแบบทันเวลาพอดี (Just-In-Time)
+                    <a href="https://www.youtube.com/watch?v=g_ofQWG1_bU" target="_blank" class="video-link" title="ชมวิดีโอ: Just-In-Time (JIT) Explained">▶️</a>
+                </h3>
+                 <p class="text-center mb-4 text-[#E2E8F0]">JIT คือหัวใจของการลดความสูญเปล่า โดยเน้นการสร้างสมดุลในทุกมิติของการผลิต เพื่อประสิทธิภาพสูงสุด</p>
+                <div class="chart-container h-[350px] md:h-[400px]">
+                    <canvas id="jitChart"></canvas>
+                </div>
+            </div>
+            <div class="bg-[#2D3748] rounded-lg shadow-lg p-6">
+                <h3 class="text-2xl font-bold mb-4 text-center text-[#06D6A0]">
+                    ยุทธศาสตร์ทำเลที่ตั้งระดับโลก
+                    <a href="https://www.youtube.com/watch?v=SXG2FBGTJrE" target="_blank" class="video-link" title="ชมวิดีโอ: โรงงานโตโยต้าทั่วโลก">▶️</a>
+                </h3>
+                <p class="text-center mb-4 text-[#E2E8F0]">การเลือกที่ตั้งโรงงานพิจารณาจากหลายปัจจัย เพื่อสร้างความได้เปรียบในการแข่งขันและตอบสนองตลาด</p>
+                <div class="chart-container h-[350px] md:h-[400px]">
+                    <canvas id="locationChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <footer class="mt-16 py-10 border-t border-gray-700 bg-[#232B39] rounded-b-lg shadow-inner">
+            <div class="max-w-3xl mx-auto px-4 ">
+                <p class="text-lg text-[#FFD166] font-semibold mb-2">
+                    อินโฟกราฟิกนี้ถ่ายทอดความสำเร็จของโตโยต้า ผ่านระบบการผลิตและปรัชญาการทำงานระดับโลก
+                </p>
+                <p class="text-sm text-[#B0BEC5] mb-4">
+                    ©2025 Toyota Infographic Analysis
+                </p>
+                <div class="flex flex-col md:flex-row md:justify-between gap-4 mb-4">
+                    <div>
+                        <h5 class="text-[#06D6A0] font-bold mb-1">ทีมผู้ออกแบบ</h5>
+                        <ul class="text-xs text-[#B0BEC5] leading-relaxed">
+                            <li>วรกันต์ ชัยสิทธิ์ 68112527</li>
+                            <li>ภัทรพงศ์ จุ้ยประเสริฐ 68112610</li>
+                            <li>ตรัยสรณ สุทธิสวัสดิ์ 68111602</li>
+                            <li>กอบชนน บริรักษ์ 68112015</li>
+                            <li>กฤตภาส ทิพย์สังข์วงษ์ 68112418</li>
+                            <li>ศุภวิชญ์ กลั่นงิ้ว 681128338</li>
+                            <li>วุฒิกร หอมหวล 68110665</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 class="text-[#06D6A0] font-bold mb-1">ข้อมูลอ้างอิง</h5>
+                        <ul class="text-xs text-[#B0BEC5] leading-relaxed list-disc list-inside">
+                            <li>Toyota Production System: Beyond Large-Scale Production</li>
+                            <li>The Toyota Way: 14 Management Principles</li>
+                            <li>Just-In-Time for Today and Tomorrow</li>
+                            <li>Lean Thinking: Banish Waste and Create Wealth</li>
+                            <li>Toyota: The Company and Its Future</li>
+                            <li>สมาคมผู้ผลิตรถยนต์แห่งประเทศไทย (TAPMA)</li>
+                            <li>รายงานประจำปีของโตโยต้า</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="text-xs text-[#78909C] mb-2">
+                    <span class="font-semibold text-[#FFD166]">หมายเหตุ:</span>
+                    ข้อมูลในอินโฟกราฟิกนี้เป็นการสรุปและวิเคราะห์จากแหล่งข้อมูลที่เชื่อถือได้ และอาจมีการเปลี่ยนแปลงตามสถานการณ์ปัจจุบัน
+                </div>
+                <div class="flex flex-col  md:flex-row md:justify-between gap-4 items-center text-xs text-[#B0BEC5]">
+                    <div>
+                        <span>ศึกษาข้อมูลเพิ่มเติมได้ที่</span>
+                        <a href="https://www.toyota-global.com/" class="text-[#FFD166] hover:underline ml-1" target="_blank" rel="noopener">toyota-global.com</a>
+                    </div>
+                    <div>
+                        <span>ติดต่อทีมงาน:</span>
+                        <a href="mailto:Krittapasthpsang@gmail.com" class="text-[#FFD166] hover:underline ml-1">Krittapasthpsang@gmail.com</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const FONT_COLOR = '#E2E8F0';
+            const GRID_COLOR = '#4A5568';
+            const PALETTE = {
+                red: '#FF6B6B',
+                yellow: '#FFD166',
+                green: '#06D6A0',
+                blue: '#118AB2',
+                darkBlue: '#073B4C', 
+                darkBackground: '#1A202C',
+                cardBackground: '#2D3748',
+                lightGray: '#E2E8F0'
+            };
+
+            const tooltipTitleCallback = (tooltipItems) => {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                    return label.join(' ');
+                } else {
+                    return label;
+                }
+            };
+
+            const wrapLabel = (label, maxLength = 16) => {
+                if (label.length <= maxLength) {
+                    return label;
+                }
+                const words = label.split(' ');
+                const lines = [];
+                let currentLine = '';
+                words.forEach(word => {
+                    if ((currentLine + word).length > maxLength) {
+                        lines.push(currentLine.trim());
+                        currentLine = '';
+                    }
+                    currentLine += word + ' ';
+                });
+                lines.push(currentLine.trim());
+                return lines.filter(line => line.length > 0);
+            };
+
+            // Chart 1: Input Chart (Donut)
+            const inputCtx = document.getElementById('inputChart').getContext('2d');
+            new Chart(inputCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['วัตถุดิบและชิ้นส่วน', 'แรงงาน', 'เทคโนโลยีและข้อมูล', 'เครื่องจักร', 'อื่นๆ'],
+                    datasets: [{
+                        label: 'สัดส่วนปัจจัยนำเข้า',
+                        data: [45, 25, 15, 10, 5],
+                        backgroundColor: [PALETTE.blue, PALETTE.green, PALETTE.yellow, PALETTE.red, '#607D8B'],
+                        borderColor: PALETTE.cardBackground,
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: FONT_COLOR,
+                                font: { family: "'Kanit', sans-serif" }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: { title: tooltipTitleCallback },
+                            titleFont: { family: "'Kanit', sans-serif" },
+                            bodyFont: { family: "'Kanit', sans-serif" }
+                        }
+                    }
+                }
+            });
+
+            // Chart 2: Process Chart (Horizontal Bar)
+            const processCtx = document.getElementById('processChart').getContext('2d');
+            new Chart(processCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['ประกอบ', 'ตรวจสอบคุณภาพ', 'วิจัยและพัฒนา', 'พ่นสี', 'เชื่อม', 'ปั๊มขึ้นรูป'].map(l => wrapLabel(l)),
+                    datasets: [{
+                        label: 'ระดับความซับซ้อนของกระบวนการ',
+                        data: [10, 9, 8, 7, 6, 5],
+                        backgroundColor: [PALETTE.blue, PALETTE.green, PALETTE.yellow, PALETTE.red, PALETTE.darkBlue, '#607D8B'],
+                        borderColor: PALETTE.cardBackground,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            grid: { color: GRID_COLOR },
+                            ticks: { color: FONT_COLOR, font: { family: "'Kanit', sans-serif" }}
+                        },
+                        y: {
+                            grid: { display: false },
+                            ticks: { color: FONT_COLOR, font: { family: "'Kanit', sans-serif" }}
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: { title: tooltipTitleCallback },
+                            titleFont: { family: "'Kanit', sans-serif" },
+                            bodyFont: { family: "'Kanit', sans-serif" }
+                        }
+                    }
+                }
+            });
+
+            // Chart 3: Forecast Chart (Line)
+            const forecastCtx = document.getElementById('forecastChart').getContext('2d');
+            new Chart(forecastCtx, {
+                type: 'line',
+                data: {
+                    labels: ['2020', '2021', '2022', '2023', '2024 (คาดการณ์)', '2025 (เป้าหมาย)'],
+                    datasets: [
+                        {
+                            label: 'ยอดขายรถยนต์ (ล้านคัน)',
+                            data: [9.5, 9.8, 10.2, 10.5, 10.8, 11.2],
+                            borderColor: PALETTE.green,
+                            backgroundColor: 'rgba(6, 214, 160, 0.2)',
+                            fill: true,
+                            tension: 0.3
+                        },
+                        {
+                            label: 'เป้าหมายการผลิต (ล้านคัน)',
+                            data: [9.6, 9.9, 10.3, 10.6, 11.0, 11.5],
+                            borderColor: PALETTE.yellow,
+                            backgroundColor: 'rgba(255, 209, 102, 0.2)',
+                            fill: true,
+                            tension: 0.3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            grid: { color: GRID_COLOR },
+                            ticks: { color: FONT_COLOR, font: { family: "'Kanit', sans-serif" }}
+                        },
+                        y: {
+                            grid: { color: GRID_COLOR },
+                            ticks: { color: FONT_COLOR, font: { family: "'Kanit', sans-serif" }}
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: FONT_COLOR,
+                                font: { family: "'Kanit', sans-serif" }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: { title: tooltipTitleCallback },
+                            titleFont: { family: "'Kanit', sans-serif" },
+                            bodyFont: { family: "'Kanit', sans-serif" }
+                        }
+                    }
+                }
+            });
+
+            // Chart 4: JIT Chart (Radar)
+            const jitCtx = document.getElementById('jitChart').getContext('2d');
+            new Chart(jitCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['ลดความสูญเปล่า', 'คุณภาพต้องมาก่อน', ['พันธมิตรซัพพลายเออร์'], 'ลดระยะเวลาผลิต', 'ระบบ Kanban'],
+                    datasets: [{
+                        label: 'หลักการ Just-In-Time',
+                        data: [9, 10, 8, 9, 10],
+                        backgroundColor: 'rgba(6, 214, 160, 0.2)', // Green with transparency
+                        borderColor: PALETTE.green,
+                        pointBackgroundColor: PALETTE.green,
+                        pointBorderColor: PALETTE.cardBackground,
+                        pointHoverBackgroundColor: PALETTE.cardBackground,
+                        pointHoverBorderColor: PALETTE.green,
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: GRID_COLOR },
+                            grid: { color: GRID_COLOR },
+                            pointLabels: { 
+                                color: FONT_COLOR, 
+                                font: { size: 12, family: "'Kanit', sans-serif" } 
+                            },
+                            ticks: {
+                                backdropColor: PALETTE.cardBackground, // Darker backdrop for ticks
+                                color: FONT_COLOR,
+                                font: { family: "'Kanit', sans-serif" }
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 10
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: FONT_COLOR,
+                                font: { family: "'Kanit', sans-serif" }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: { title: tooltipTitleCallback },
+                            titleFont: { family: "'Kanit', sans-serif" },
+                            bodyFont: { family: "'Kanit', sans-serif" }
+                        }
+                    }
+                }
+            });
+            
+            // Chart 5: Location Chart (Bar)
+            const locationCtx = document.getElementById('locationChart').getContext('2d');
+            new Chart(locationCtx, {
+                type: 'bar',
+                data: {
+                    labels: [['การเข้าถึงตลาด'], ['ใกล้ซัพพลายเออร์'], ['โครงสร้างพื้นฐาน'], ['แรงงานมีทักษะ'], ['การสนับสนุนจากรัฐบาล']].map(l => wrapLabel(Array.isArray(l) ? l.join(' ') : l)),
+                    datasets: [{
+                        label: 'ปัจจัยสำคัญในการเลือกที่ตั้งโรงงาน',
+                        data: [10, 9, 8, 7, 6],
+                        backgroundColor: [PALETTE.blue, PALETTE.green, PALETTE.yellow, PALETTE.red, PALETTE.darkBlue],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                         y: {
+                            beginAtZero: true,
+                            grid: { color: GRID_COLOR },
+                            ticks: { color: FONT_COLOR, font: { family: "'Kanit', sans-serif" }}
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: FONT_COLOR, font: { family: "'Kanit', sans-serif" }}
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: { title: tooltipTitleCallback },
+                            titleFont: { family: "'Kanit', sans-serif" },
+                            bodyFont: { family: "'Kanit', sans-serif" }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
